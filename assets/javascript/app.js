@@ -57,18 +57,18 @@ var gameScore = {
             
         }
         else {
-            debugger;
             gameScore.wrongAnswer++;
             console.log($(this).val())
+            console.log('you have made ' + gameScore.wrongAnswer + ' mistakes')
             $('#correctAnswerDisplay').text('The correct answer was: ' + questions[i].Ans1)
-            setTimeout(generalDelay, 1000 * 5)
-            i++;
-            time = 0;
-            if (i < questions.length){
-                displayQuestions()
-            } else {
-                console.log('no more questions left in array')  
-            }
+            setTimeout(generalDelay,4000)
+            // i++;
+            // time = 0;
+            // if (i < questions.length){
+            //     displayQuestions()
+            // } else {
+            //     console.log('no more questions left in array')  
+            // }
         
         
         }
@@ -126,6 +126,14 @@ function displayQuestions(){
     }
       
     function generalDelay() {
+        console.log('in general delay')
+        i++;
+            time = 0;
+            if (i < questions.length){
+                displayQuestions()
+            } else {
+                console.log('no more questions left in array')  
+            }
         
     }
 
