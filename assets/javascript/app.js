@@ -4,6 +4,7 @@ var clockRunning = false;
 var intervalId;
 var time = 10;
 var i = 0;
+var answerPicked = false;
 
 var questions1 = {
             Q1: 'what color are Granny Smith apples?',
@@ -71,7 +72,7 @@ var gameScore = {
             $('.numWrongAnswers').text('Wrong Answers: ' +gameScore.wrongAnswer)
             $('#correctAnswerDisplayOne').text('The correct answer was: ' + questions[i].Ans1)
             $('#timer').empty()
-            setTimeout(generalDelay,4000)       
+            setTimeout(generalDelay,3000)       
         }
      
 
@@ -91,23 +92,35 @@ $(document).on('click', '#startGame', function() {
 
 //capturing which answer is clicked by user
 $(document).on('click', '#answerA', function() {
+   if (!answerPicked){
     var guess = $(this).attr('data-val')
-    gameScore.submitted(guess);   
+    gameScore.submitted(guess); 
+    answerPicked = true
+}
 })
 
 $(document).on('click', '#answerB', function() {
-    var guess = $(this).attr('data-val')
-    gameScore.submitted(guess);   
+    if (!answerPicked){
+        var guess = $(this).attr('data-val')
+        gameScore.submitted(guess); 
+        answerPicked = true
+    }
 })
 
 $(document).on('click', '#answerC', function() {
-    var guess = $(this).attr('data-val')
-    gameScore.submitted(guess);  
+    if (!answerPicked){
+        var guess = $(this).attr('data-val')
+        gameScore.submitted(guess); 
+        answerPicked = true
+    }
 })
 
 $(document).on('click', '#answerD', function() {
-    var guess = $(this).attr('data-val')
-    gameScore.submitted(guess);    
+    if (!answerPicked){
+        var guess = $(this).attr('data-val')
+        gameScore.submitted(guess); 
+        answerPicked = true
+    } 
 })
 
 
@@ -139,15 +152,20 @@ function displayQuestions(){
 
 
     function startClock() {
+        answerPicked = false
         time--
         $('#timer').text(time)
          if (time < 1){
             clearInterval(intervalId);
             clockRunning = false
              console.log('time out')
+             $('#correctAnswerDisplayOne').text('The correct answer was: ' + questions[i].Ans1)
              $('countdownTimer').append(`
                 <p id="timer">${time}<p>
              `)
+             gameScore.wrongAnswer++;
+            $('.numWrongAnswers').text('Wrong Answers: ' +gameScore.wrongAnswer)
+             setTimeout(generalDelay,3000)
         }
         console.log(time)
     }
