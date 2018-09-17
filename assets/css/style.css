@@ -1,0 +1,42 @@
+#gameHeader{
+    border: blue 2px solid;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    font-size: 60px;
+}
+.answers:hover{
+    width: auto;
+    border: black 2px solid;
+    background-color: peachpuff;    
+}
+
+.container{
+    border: black 2px solid;
+    background-color: whitesmoke;
+    width: 960px;
+    height: 650px;
+    -webkit-filter: drop-shadow(2px 2px 20px blue);
+    box-shadow: 10px 20px blue;
+}
+
+.countdownTimer{
+    border: black 2px dashed;
+    text-align: center;
+    font-size: 45px;
+    margin: 0;
+}
+
+#timer{
+    margin: 0;
+}
+
+#bodyImage{
+    background-image: url(../image/backgroundimage.jpg)
+}
+
+#gameButton{
+    position: relative;
+    top: 70%;
+    margin: 0;
+}

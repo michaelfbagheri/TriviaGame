@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 var clockRunning = false;
 var intervalId;
-var time = 0;
+var time = 10;
 var i = 0;
 
 var questions1 = {
@@ -39,72 +39,80 @@ console.log(questions)
 var gameScore = {
     score: 0,
     wrongAnswer: 0,    
-    submitted: function() {
-
-        $.each($("input[name='answer']:checked"), function() {
-        if ($(this).val() === questions[i].Ans1) {
+    submitted: function(guess) {
+        clearInterval(intervalId);
+        clockRunning = false;
+         
+        if (guess === questions[i].Ans1) {
+            $('#timer').empty()
             gameScore.score++;
-            console.log($(this).val())
             i++;
-            time = 0;
+            time = 10;
             if (i < questions.length){
                 displayQuestions()
             } else {
                 console.log('you win the game')  
-            }
-           
-        
-            
+            }            
         }
         else {
             gameScore.wrongAnswer++;
-            console.log($(this).val())
             console.log('you have made ' + gameScore.wrongAnswer + ' mistakes')
-            $('#correctAnswerDisplay').text('The correct answer was: ' + questions[i].Ans1)
-            setTimeout(generalDelay,4000)
-            // i++;
-            // time = 0;
-            // if (i < questions.length){
-            //     displayQuestions()
-            // } else {
-            //     console.log('no more questions left in array')  
-            // }
-        
-        
+            $('#correctAnswerDisplayOne').text('The correct answer was: ' + questions[i].Ans1)
+            $('#timer').empty()
+            setTimeout(generalDelay,4000)       
         }
-        })
+     
 
        
 
     }    
 }
 
-
-
-
-
-$(document).on('click', '#submit', function() {
-    clearInterval(intervalId);
-    clockRunning = false;
-    gameScore.submitted();   
-})
-
-
+// Click button to start game, displays questions and starts/displays timer
 $(document).on('click', '#startGame', function() {
+    $('#gameButton').empty();
     displayQuestions()
 })
-   
 
+//capturing which answer is clicked by user
+$(document).on('click', '#answerA', function() {
+    var guess = $(this).attr('data-val')
+    gameScore.submitted(guess);   
+})
+
+$(document).on('click', '#answerB', function() {
+    var guess = $(this).attr('data-val')
+    gameScore.submitted(guess);   
+})
+
+$(document).on('click', '#answerC', function() {
+    var guess = $(this).attr('data-val')
+    gameScore.submitted(guess);  
+})
+
+$(document).on('click', '#answerD', function() {
+    var guess = $(this).attr('data-val')
+    gameScore.submitted(guess);    
+})
+
+
+
+
+
+
+   
+// this function displays the question and multiple choice answers on the DOM
+// and starts the count down timer by invoking the startclock function
 function displayQuestions(){
         $('.questionOne').text(questions[i].Q1)
         $('.answerOne').empty()
-        $('#correctAnswerDisplay').empty()
+        $('#correctAnswerDisplayOne').empty()
         $('.answerOne').append(
             `
-            <input type="radio" id="answerA" name="answer" value="${questions[i].A1}" style="margin: 10px"> ${questions[i].A1}
-            <input type="radio" id="answerB" name="answer" value="${questions[i].B1}" style="margin: 10px"> ${questions[i].B1}
-            <input type="radio" id="answerC" name="answer" value="${questions[i].C1}" style="margin: 10px"> ${questions[i].C1}
-            <input type="radio" id="answerD" name="answer" value="${questions[i].D1}" style="margin: 10px"> ${questions[i].D1}
+            <p class="answers" id="answerA" name="answerQOne" data-val="${questions[i].A1}" style="margin: 10px"> ${questions[i].A1}
+            <p class="answers" id="answerB" name="answerQOne" data-val="${questions[i].B1}" style="margin: 10px"> ${questions[i].B1}
+            <p class="answers" id="answerC" name="answerQOne" data-val="${questions[i].C1}" style="margin: 10px"> ${questions[i].C1}
+            <p class="answers" id="answerD" name="answerQOne" data-val="${questions[i].D1}" style="margin: 10px"> ${questions[i].D1}
             
             `
         )
@@ -116,11 +124,16 @@ function displayQuestions(){
 
 
     function startClock() {
-        time++
-         if (time > 5){
+        time--
+        $('#timer').text(time)
+
+         if (time < 1){
             clearInterval(intervalId);
             clockRunning = false
              console.log('time out')
+             $('countdownTimer').append(`
+                <p id="timer">${time}<p>
+             `)
         }
         console.log(time)
     }
@@ -128,7 +141,7 @@ function displayQuestions(){
     function generalDelay() {
         console.log('in general delay')
         i++;
-            time = 0;
+            time = 10;
             if (i < questions.length){
                 displayQuestions()
             } else {

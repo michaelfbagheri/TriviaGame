@@ -11,17 +11,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <script src="assets/javascript/app.js"></script>
+  
+    <link rel="stylesheet" href="assets/css/style.css">
+    
 </head>
-  <body>
+  <body id="bodyImage">
+    <header>
+      <p id="gameHeader">Trivia Game</p>
+    </header>
       
     <div class="container">
-        
-            <div class="row questionOne"></div>
-            <form class="row answerOne"></form>
-            <button id="submit">Submit</button>
-            <button id="startGame">start Game</button>
-            <div id="correctAnswerDisplay"></div>
 
+          
+          <div class="countdownTimer">
+            <p id="timer"></p>
+          </div>
+          <div class="questionClass"> 
+            <div class="row questionOne"></div>
+            <form class=" answerOne"></form>
+            <div id="correctAnswerDisplayOne"></div>
+          </div>
+
+
+
+          <div id="gameButton">
+            <button id="startGame">start Game</button>
+          </div>
 
     </div>
     <!-- Optional JavaScript -->
