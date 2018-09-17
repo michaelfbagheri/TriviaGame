@@ -35,7 +35,7 @@ var questions3 = {
 var questions = [questions1,questions2,questions3];
 console.log(questions)
 
-
+//this object keeps score/win/loss
 var gameScore = {
     score: 0,
     wrongAnswer: 0,    
@@ -46,17 +46,29 @@ var gameScore = {
         if (guess === questions[i].Ans1) {
             $('#timer').empty()
             gameScore.score++;
+            $('.numRightAnswers').text('Correct Answers: ' + gameScore.score)
             i++;
             time = 10;
             if (i < questions.length){
                 displayQuestions()
             } else {
-                console.log('you win the game')  
+                i = 0;
+                $('#timer').empty() 
+                $('.questionOne').empty()
+                $('.answerOne').empty()
+                $('#correctAnswerDisplayOne').empty()
+                $('#gameButton').append(`
+                <button id="startGame">Play Again</button>
+                `)
+                $('#outcome').text('You Win!')
+                gameScore.wrongAnswer = 0
+                gameScore.score = 0
+
             }            
         }
         else {
             gameScore.wrongAnswer++;
-            console.log('you have made ' + gameScore.wrongAnswer + ' mistakes')
+            $('.numWrongAnswers').text('Wrong Answers: ' +gameScore.wrongAnswer)
             $('#correctAnswerDisplayOne').text('The correct answer was: ' + questions[i].Ans1)
             $('#timer').empty()
             setTimeout(generalDelay,4000)       
@@ -71,6 +83,9 @@ var gameScore = {
 // Click button to start game, displays questions and starts/displays timer
 $(document).on('click', '#startGame', function() {
     $('#gameButton').empty();
+    $('#outcome').empty()
+    $('.numRightAnswers').empty();
+    $('.numWrongAnswers').empty();
     displayQuestions()
 })
 
@@ -126,7 +141,6 @@ function displayQuestions(){
     function startClock() {
         time--
         $('#timer').text(time)
-
          if (time < 1){
             clearInterval(intervalId);
             clockRunning = false
@@ -145,7 +159,17 @@ function displayQuestions(){
             if (i < questions.length){
                 displayQuestions()
             } else {
-                console.log('no more questions left in array')  
+                i = 0;
+                $('#timer').empty() 
+                $('.questionOne').empty()
+                $('.answerOne').empty()
+                $('#correctAnswerDisplayOne').empty()
+                $('#gameButton').append(`
+                <button id="startGame">Play Again</button>
+                `)
+                $('#outcome').text('You Lose!')
+                gameScore.wrongAnswer = 0
+                gameScore.score = 0
             }
         
     }
