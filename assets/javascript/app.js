@@ -16,7 +16,7 @@ var questions1 = {
 
 var questions2 = {
             Q1: 'what color are Red apples?',
-            A1: 'Blue',
+            A1: 'Red',
             B1: 'Green',
             C1: 'Purple',
             D1: 'Orange',
@@ -39,27 +39,42 @@ console.log(questions)
 var gameScore = {
     score: 0,
     wrongAnswer: 0,    
-    done: function() {
+    submitted: function() {
 
         $.each($("input[name='answer']:checked"), function() {
-        if ($(this).val() === questions1.Ans1) {
+        if ($(this).val() === questions[i].Ans1) {
             gameScore.score++;
             console.log($(this).val())
             i++;
-            displayQuestions()
+            time = 0;
             if (i < questions.length){
+                displayQuestions()
+            } else {
                 console.log('you win the game')  
             }
+           
         
             
         }
         else {
+            debugger;
             gameScore.wrongAnswer++;
             console.log($(this).val())
-            $('#correctAnswerDisplay').text('The correct answer was: ' + questions[0].Ans1)
+            $('#correctAnswerDisplay').text('The correct answer was: ' + questions[i].Ans1)
+            setTimeout(generalDelay, 1000 * 5)
+            i++;
+            time = 0;
+            if (i < questions.length){
+                displayQuestions()
+            } else {
+                console.log('no more questions left in array')  
+            }
+        
+        
         }
         })
-        return console.log('next Question')
+
+       
 
     }    
 }
@@ -71,7 +86,7 @@ var gameScore = {
 $(document).on('click', '#submit', function() {
     clearInterval(intervalId);
     clockRunning = false;
-    gameScore.done();   
+    gameScore.submitted();   
 })
 
 
@@ -83,12 +98,13 @@ $(document).on('click', '#startGame', function() {
 function displayQuestions(){
         $('.questionOne').text(questions[i].Q1)
         $('.answerOne').empty()
+        $('#correctAnswerDisplay').empty()
         $('.answerOne').append(
             `
-            <input type="radio" id="answerA" name="answer" value="${questions[i].A1}" style="margin: 10px"> ${questions1.A1}
-            <input type="radio" id="answerB" name="answer" value="${questions[i].B1}" style="margin: 10px"> ${questions1.B1}
-            <input type="radio" id="answerC" name="answer" value="${questions[i].C1}" style="margin: 10px"> ${questions1.C1}
-            <input type="radio" id="answerD" name="answer" value="${questions[i].D1}" style="margin: 10px"> ${questions1.D1}
+            <input type="radio" id="answerA" name="answer" value="${questions[i].A1}" style="margin: 10px"> ${questions[i].A1}
+            <input type="radio" id="answerB" name="answer" value="${questions[i].B1}" style="margin: 10px"> ${questions[i].B1}
+            <input type="radio" id="answerC" name="answer" value="${questions[i].C1}" style="margin: 10px"> ${questions[i].C1}
+            <input type="radio" id="answerD" name="answer" value="${questions[i].D1}" style="margin: 10px"> ${questions[i].D1}
             
             `
         )
@@ -109,10 +125,8 @@ function displayQuestions(){
         console.log(time)
     }
       
-    function stopClock() {
-        // DONE: Use clearInterval to stop the count here and set the clock to not be running.
-        clearInterval(intervalId);
-        clockRunning = false;
-      }
+    function generalDelay() {
+        
+    }
 
 })
