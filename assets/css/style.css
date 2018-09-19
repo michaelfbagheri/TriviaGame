@@ -62,7 +62,6 @@
 
 #startGame{
     width: 35%;
-    height: 50px;
     border: 1px black solid;
     -webkit-filter: drop-shadow(2px 2px 20px gold);
     box-shadow: 5px 10p;
@@ -107,4 +106,10 @@
 #outcome{
     font-family: monoton;
     font-size: 50px;
+}
+
+#correctImage{
+    width: 350px;
+    height: 300px;
+
 }
